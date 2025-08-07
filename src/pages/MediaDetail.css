@@ -1,0 +1,108 @@
+body, html {
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: #181818;
+}
+
+
+.media-detail-container {
+  min-height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #181818;
+}
+
+
+.movie-container {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1400px;    /* Increase from 1200px to 1400px */
+  width: 96vw;          /* Increase from default to 96vw */
+  margin: 0 auto 2rem auto;
+  padding: 2rem;
+  background-color: #282c34;
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+  gap: 2rem;
+}
+.movie-poster {
+  flex: 0 0 300px;
+}
+
+.poster-image {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(153, 30, 30, 0.1);
+}
+
+.movie-title {
+  font-size: 2.5rem;
+  color: #f8f9fa;
+}
+
+.movie-meta {
+  display: flex;
+  gap: 1rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.release-year,
+.rating {
+  font-size: 1.1rem;
+  background: #f5c518;
+  color: #212529;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.movie-info p {
+  margin: 0.5rem 0;
+  color: #eee;
+}
+
+.movie-description p {
+  line-height: 1.6;
+  color: #ccc;
+}
+
+.review-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content-box {
+  background: #130909;
+  padding: 20px;
+  width: 400px;
+  border-radius: 10px;
+}
+
+.movie-poster img {
+  max-width: 220px;
+  border-radius: 10px;
+}
+
+.movie-details {
+  flex: 1;
+}
+
+.review-comment {
+  font-size: 0.90em;
+  color: #ccc;
+}
