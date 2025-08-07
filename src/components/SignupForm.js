@@ -36,8 +36,9 @@ function SignupForm() {
 
 
       alert("Signup successful!");
+      localStorage.setItem('userId', user._id);
       localStorage.setItem('username', form.username || form.name);
-      localStorage.setItem('userIds', user._id);
+      localStorage.setItem('token', res.data.token);
 
       navigate('/home');
     } catch (err) {

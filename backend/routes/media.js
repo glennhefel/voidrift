@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import Media from '../models/media.model.js';
 import Rating from '../models/review.model.js';
+import { authenticateToken } from '../middleware/authi.js';
+import { isAdmin } from '../middleware/isAdmin.js';
 const router = Router();
 
 // Get all media
@@ -61,7 +63,7 @@ router.post('/add', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:id',authenticateToken, isAdmin, async (req, res) => {
   console.log('DELETE request for:', req.params.id); // Debug log
   try {
     const deleted = await Media.findByIdAndDelete(req.params.id);

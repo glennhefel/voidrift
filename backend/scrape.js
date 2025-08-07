@@ -15,7 +15,7 @@ async function scrapeAnimeById(animeId) {
     const release_date = anime.aired?.from ? new Date(anime.aired.from) : new Date("2000-01-01");
     const media = "Anime";
     const genre = anime.genres?.[0]?.name || "Unknown";
-    const director = "Unknown"; // Jikan does not provide director info
+    const director = "Unknown"; 
     let description = anime.synopsis || "Unknown";
     
     const poster = anime.images?.jpg?.large_image_url || anime.images?.jpg?.image_url || "";

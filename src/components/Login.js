@@ -21,10 +21,13 @@ function LoginForm() {
       });
       const user = res.data.user;
       console.log(res.data.user); 
-      localStorage.setItem('token', res.data.token);
+      
       alert('Login successful!');
+      localStorage.setItem('token', res.data.token);
       localStorage.setItem('username', form.username || form.name);
       localStorage.setItem('userId', user._id);
+      
+
       
      
       navigate('/home');

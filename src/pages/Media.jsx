@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './MediaDetail.css';
-
+import { jwtDecode } from "jwt-decode";
+import NavBar from './navbar';
 function MediaDetail() {
   const { id } = useParams();
   const [media, setMedia] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  const [userReviewed, setUserReviewed] = useState(false);
   const userId = localStorage.getItem('userId');
-  const username = localStorage.getItem('username');
+  const userReviewed = reviews.find(r => r.user && (r.user._id === userId || r.user.id === userId));
+  
+  
   useEffect(() => {
     fetch(`http://localhost:5000/media/${id}`)
       .then(res => {
@@ -19,17 +21,28 @@ function MediaDetail() {
       .then(data => {
         setMedia(data);
         setReviews(data.reviews || []);
-        setUserReviewed(data.userReviewed);
+        
       })
       .catch(() => setMedia(null));
   }, [id]);
-
+//admin check   
+const token = localStorage.getItem('token');
+let isAdmin = false;
+if (token) {
+  try {
+    const decoded = jwtDecode(token);
+    isAdmin = decoded.isAdmin;
+  } catch (e) {
+    isAdmin = false;
+  }
+}
 const handleDelete = async () => {
   if (window.confirm('Are you sure you want to delete this media?')) {
     try {
       const res = await fetch(`http://localhost:5000/media/${id}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json' ,
+                   'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       const result = await res.json();
       if (!res.ok) throw new Error(result.error || 'Network response was not ok');
@@ -45,6 +58,9 @@ const handleDelete = async () => {
   if (media === null) return <div>Media not found.</div>;
 
   return (
+    <>
+      <NavBar />
+      <div className="media-detail-container">
     <div className="media-detail-container">
       <div className="movie-container">
         <div className="movie-poster">
@@ -62,13 +78,15 @@ const handleDelete = async () => {
             <p style={{ fontSize: '0.95rem' }}><strong>Genre:</strong> {media.genre}</p>
             
           </div>
+        {isAdmin && (
+          <button onClick={handleDelete} className="btn btn-danger btn-sm mb-3 px-3 py-2 rounded">
+            Delete
+          </button>
+        )}
 
-        <button onClick={handleDelete} className="btn btn-danger btn-sm mb-3 px-3 py-2 rounded">
-          Delete Media
-        </button>
-      
           {userReviewed ? (
-            <button className="btn btn-secondary">Bruh</button>
+            <button onClick={() => setShowModal(true)}
+                  className="btn btn-secondary">Edit Review</button>
           ) : (
             <button
               onClick={() => setShowModal(true)}
@@ -111,6 +129,7 @@ const handleDelete = async () => {
             </div>
           ))
         )}
+        
       </div>
 
       {/* Modal */}
@@ -175,6 +194,8 @@ const handleDelete = async () => {
 
       
     </div>
+    </div>
+    </>
   );
 }
 
