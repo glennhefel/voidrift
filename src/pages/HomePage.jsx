@@ -22,7 +22,7 @@ function HomePage() {
         setLoading(false);
       });
   }, []);
-
+  
   return (
     <div className="homepage-dark" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
@@ -48,7 +48,17 @@ function HomePage() {
         <div className="navbar-text me-2 text-light">
           Welcome, <Link className="nav-link" to="/profile">{username || "Guest"}</Link> 
         </div>
-        <Link className="btn btn-warning btn-sm" to="/">Logout</Link>
+        <button
+          className="btn btn-warning btn-sm"
+          onClick={() => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('userId');
+            localStorage.removeItem('username');
+            window.location.href = '/';
+          }}
+        >
+          Logout
+        </button>
       </nav>
 
       <div className="container mt-4 text-light" style={{ flex: 1 }}>

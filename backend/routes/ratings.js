@@ -1,14 +1,14 @@
 import express from 'express';
 import Rating from '../models/review.model.js';
-import Media from '../models/media.model.js';
-import User from '../models/user.model.js'; 
+//import Media from '../models/media.model.js';
+//import User from '../models/user.model.js'; 
 const router = express.Router();
 
 
 router.get('/media/:mediaId', async (req, res) => {
   try {
     const ratings = await Rating.find({ media: req.params.mediaId })
-      .populate('user', 'username')  // populate user if needed
+      .populate('user', 'username')  
       .sort({ createdAt: -1 });
 
     res.json(ratings);

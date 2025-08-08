@@ -42,7 +42,7 @@ function LoginForm() {
         label="Username"
         type="text"
         name="username"
-        placeholder="Username"
+        placeholder="Type your Username"
         value={form.username}
         onChange={handleChange}
         required
@@ -51,12 +51,12 @@ function LoginForm() {
         label="Password"
         type="password"
         name="password"
-        placeholder="Password"
+        placeholder="Type your Password"
         value={form.password}
         onChange={handleChange}
         required
       />
-      <button type="submit">Log In</button>
+  <button type="submit" className="btn btn-outline-warning btn-sm mb-3 px-3 py-2 rounded">Log In</button>
     </form>
   );
 }

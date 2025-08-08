@@ -86,7 +86,7 @@ const handleDelete = async () => {
 
           {userReviewed ? (
             <button onClick={() => setShowModal(true)}
-                  className="btn btn-secondary">Edit Review</button>
+                  className="btn btn-secondary btn-sm mb-3 px-3 py-2 rounded">Edit Review</button>
           ) : (
             <button
               onClick={() => setShowModal(true)}
@@ -115,11 +115,11 @@ const handleDelete = async () => {
             <div key={review.id} className="border rounded p-3 my-3 shadow-sm bg-dark text-light">
               <strong>{review.user.username}</strong> rated it{' '}
               <span className="badge bg-warning text-dark">{review.rating}/10★</span>
-              <p className="mt-2">
+              <p className="mt-2" style={{ fontSize: '0.95em', textAlign: 'left', color: '#ccc', marginLeft: 0 }}>
                 {review.comment === '(This guy wrote nothing)' ? (
-                  <i style={{ color: 'grey' }}>{review.comment}</i>
+                  <i style={{ color: 'grey', fontSize: '0.93em', textAlign: 'left' }}>{review.comment}</i>
                 ) : (
-                  review.comment
+                  <span style={{ fontSize: '0.93em', textAlign: 'left' }}>{review.comment}</span>
                 )}
               </p>
               <div className="d-flex gap-3 align-items-center mt-2">

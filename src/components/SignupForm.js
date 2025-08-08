@@ -88,7 +88,7 @@ function SignupForm() {
         onChange={handleChange}
         required
       />
-      <button type="submit">Sign Up</button>
+      <button type="submit" className="btn btn-outline-warning btn-sm mb-3 px-3 py-2 rounded">Sign Up</button>
     </form>
   );
 }
