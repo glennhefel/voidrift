@@ -2,6 +2,9 @@ import express from 'express';
 import Rating from '../models/review.model.js';
 //import Media from '../models/media.model.js';
 //import User from '../models/user.model.js'; 
+import { voteOnReview } from '../controllers/reviewVoteController.js';
+import { authenticateToken } from '../middleware/authi.js';
+
 const router = express.Router();
 
 
@@ -9,7 +12,7 @@ router.get('/media/:mediaId', async (req, res) => {
   try {
     const ratings = await Rating.find({ media: req.params.mediaId })
       .populate('user', 'username')  
-      .sort({ createdAt: -1 });
+      .sort({ createdAt: 1 });
 
     res.json(ratings);
   } catch (err) {
@@ -48,5 +51,8 @@ router.post('/:mediaId', async (req, res) => {
     res.status(500).json({ error: 'Failed to post rating' });
   }
 });
+
+// POST /api/ratings/reviews/:reviewId/vote
+router.post('/reviews/:reviewId/vote', authenticateToken, voteOnReview);
 
 export default router;

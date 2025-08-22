@@ -5,6 +5,9 @@ import HomePage from './pages/HomePage';
 import MediaDetail from './pages/Media';
 import Top100Page from './pages/Top100';
 import AddMediaForm from './pages/addmedia';
+import SearchResults from './pages/SearchResults';
+import Profile from './pages/Profile';
+import WatchlistPage from './pages/Watchlist';
 import './App.css';
 
 function App() {
@@ -18,6 +21,10 @@ function App() {
             <Route path="/media/:id" element={<MediaDetail />} />
             <Route path="/top100" element={<Top100Page />} />
             <Route path="/addmedia" element={<AddMediaForm />} />
+            <Route path="/search" element={<SearchResults />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/users/:id" element={<Profile />} />
+            <Route path="/watchlist" element={<WatchlistPage />} />
           </Routes>
         </header>
       </div>

@@ -20,7 +20,8 @@ function LoginForm() {
         password: form.password,
       });
       const user = res.data.user;
-      console.log(res.data.user); 
+      console.log('Login Response:', res.data);
+      console.log('User Object:', res.data.user);
       
       alert('Login successful!');
       localStorage.setItem('token', res.data.token);

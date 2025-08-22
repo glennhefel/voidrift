@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './HomePage.css';
+import NavBar from './navbar';
 
 function Top100Page() {
-  const username = localStorage.getItem('username');
+ 
   const [media, setMedia] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -29,24 +30,7 @@ function Top100Page() {
 
   return (
     <div className="homepage-dark" style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-          <li className="nav-item">
-            <Link className="nav-link" to="/home">Home</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link active" to="/top100">🏆 Top 100</Link>
-          </li>
-        </ul>
-        <form className="d-flex me-2">
-          <input className="form-control form-control-sm me-2" type="search" placeholder="Search" />
-          <button className="btn btn-outline-success btn-sm" type="submit">Search</button>
-        </form>
-        <div className="navbar-text me-2 text-light">
-          Welcome, {username || "Guest"}
-        </div>
-        <Link className="btn btn-warning btn-sm" to="/">Logout</Link>
-      </nav>
+      <NavBar />
 
       <div className="container mt-4 text-light" style={{ flex: 1 }}>
         <h1 className="display-4 mb-4">Top 100 Rated</h1>

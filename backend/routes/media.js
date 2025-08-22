@@ -1,9 +1,10 @@
-import { Router } from 'express';
+import express from 'express';
 import Media from '../models/media.model.js';
 import Rating from '../models/review.model.js';
 import { authenticateToken } from '../middleware/authi.js';
+import { vote } from '../controllers/ratingController.js';
 import { isAdmin } from '../middleware/isAdmin.js';
-const router = Router();
+const router = express.Router();
 
 // Get all media
 router.get('/', async (req, res) => {
@@ -57,9 +58,30 @@ router.post('/add', async (req, res) => {
   try {
     const newMedia = new Media(req.body);
     await newMedia.save();
-    res.json('Media added!');
+    res.json({ message: 'Media added!', media: newMedia });
   } catch (err) {
     res.status(400).json({ error: err.message });
+  }
+});
+
+// search
+router.get('/search', async (req, res) => {
+  try {
+    const q = (req.query.q || '').trim();
+    if (!q) return res.json([]); 
+    const regex = new RegExp(q, 'i');
+    const results = await Media.find({
+      $or: [
+        { title: regex },
+        { description: regex },
+        { genre: regex },
+        { director: regex }
+      ]
+    }).limit(100);
+    res.json(results);
+  } catch (err) {
+    console.error('Media search error:', err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
@@ -73,6 +95,6 @@ router.delete('/:id',authenticateToken, isAdmin, async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
-
+router.post('/:mediaId/vote', authenticateToken, vote);
 
 export default router;

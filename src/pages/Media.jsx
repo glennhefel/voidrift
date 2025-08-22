@@ -55,6 +55,45 @@ const handleDelete = async () => {
   }
 };
 
+
+
+const sendReviewVote = async (reviewId, value) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Please log in to vote.');
+    return;
+  }
+
+  try {
+    const res = await fetch(`http://localhost:5000/ratings/reviews/${reviewId}/vote`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({ value }),
+    });
+
+    if (!res.ok) {
+      alert('Vote failed.');
+      return;
+    }
+
+    // refresh media (and reviews) to show updated counts
+    const mediaRes = await fetch(`http://localhost:5000/media/${id}`);
+    if (mediaRes.ok) {
+      const data = await mediaRes.json();
+      setMedia(data);
+      setReviews(data.reviews || []);
+    }
+  } catch (err) {
+    alert('Vote failed.');
+  }
+};
+
+  const handleUpvote = (reviewId) => sendReviewVote(reviewId, 1);
+  const handleDownvote = (reviewId) => sendReviewVote(reviewId, -1);
+
   if (media === null) return <div>Media not found.</div>;
 
   return (
@@ -102,7 +141,7 @@ const handleDelete = async () => {
             <p style={{ fontSize: '0.95rem' }}>{media.description}</p>
           </div>
 
-         
+          
         </div>
       </div>
 
@@ -123,8 +162,8 @@ const handleDelete = async () => {
                 )}
               </p>
               <div className="d-flex gap-3 align-items-center mt-2">
-                <button className="btn btn-sm btn-outline-success">👍 {review.upvotes}</button>
-                <button className="btn btn-sm btn-outline-danger">👎 {review.downvotes}</button>
+                <button onClick={() => handleUpvote(review._id)} className="btn btn-sm btn-outline-success">👍 {review.upvotes}</button>
+                <button onClick={() => handleDownvote(review._id)} className="btn btn-sm btn-outline-danger">👎 {review.downvotes}</button>
               </div>
             </div>
           ))

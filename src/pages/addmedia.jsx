@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import NavBar from './navbar';
 
 function AddMediaForm() {
   const [form, setForm] = useState({
@@ -31,17 +32,24 @@ function AddMediaForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 bg-dark text-light rounded">
-      <h3>Add New Media</h3>
-      <input name="title" placeholder="Title" value={form.title} onChange={handleChange} required className="form-control mb-2" />
-      <input name="release_date" type="date" value={form.release_date} onChange={handleChange} required className="form-control mb-2" />
-      <input name="media" placeholder="Type (Anime/Movie)" value={form.media} onChange={handleChange} required className="form-control mb-2" />
-      <input name="genre" placeholder="Genre" value={form.genre} onChange={handleChange} required className="form-control mb-2" />
-      <input name="director" placeholder="Director" value={form.director} onChange={handleChange} className="form-control mb-2" />
-      <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange} className="form-control mb-2" />
-      <input name="poster" placeholder="Poster URL" value={form.poster} onChange={handleChange} className="form-control mb-2" />
-      <button type="submit" className="btn btn-primary">Add Media</button>
-    </form>
+    <>
+      <NavBar />
+      <div className="container py-4">
+        
+        <form onSubmit={handleSubmit} className="p-4 bg-dark text-light rounded">
+          <h3>Add New Media</h3>
+          <input name="title" placeholder="Title" value={form.title} onChange={handleChange} required className="form-control mb-2" style={{ width: '20%', boxSizing: 'border-box' }} />
+          <input name="release_date" type="date" value={form.release_date} onChange={handleChange} required className="form-control mb-2" style={{ width: '20%', boxSizing: 'border-box' }} />
+          <input name="media" placeholder="Type (Anime/Movie)" value={form.media} onChange={handleChange} required className="form-control mb-2" style={{ width: '20%', boxSizing: 'border-box' }}/>
+          <input name="genre" placeholder="Genre" value={form.genre} onChange={handleChange} required className="form-control mb-2" style={{ width: '20%', boxSizing: 'border-box' }} />
+          <input name="director" placeholder="Director" value={form.director} onChange={handleChange} className="form-control mb-2" style={{ width: '20%', boxSizing: 'border-box' }}/>
+          <textarea name="description" placeholder="Description" value={form.description} onChange={handleChange} className="form-control mb-2" style={{ width: '20%', boxSizing: 'border-box' }}/>
+          <input name="poster" placeholder="Poster URL" value={form.poster} onChange={handleChange} className="form-control mb-2" style={{ width: '20%', boxSizing: 'border-box' }}/>
+          <button type="submit" className="btn btn-primary">Add Media</button>
+        </form>
+        </div>
+      
+    </>
   );
 }
 
